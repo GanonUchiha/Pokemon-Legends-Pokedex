@@ -1,0 +1,7 @@
+test*
+images/summary/*
+images/tasks/*
+images.txt
+pokedex.ods
+pokedex/*
+src/__pycache__
