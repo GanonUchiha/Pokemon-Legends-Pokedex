@@ -1,5 +1,9 @@
-import tkinter as tk
 
+# Standard libraries
+from tkinter import Label, Button, Entry, StringVar
+from tkinter import W
+
+# Other modules
 from settings import *
 from Viewer import Viewer
 
@@ -7,7 +11,7 @@ class ResearchTask(Viewer):
 
     maxStages = 5
 
-    def __init__(self, root: tk.Tk, description: str, levels: list[int], count: int=0, startRow: int=0, startCol: int=0):
+    def __init__(self, root, description: str, levels: list[int], count: int=0, startRow: int=0, startCol: int=0):
         self.root = root
 
         self.description = description
@@ -42,19 +46,19 @@ class ResearchTask(Viewer):
     def ViewerSetup(self):
 
         # Task description
-        self.descriptionLabel = tk.Label(self.root, text=self.description)
+        self.descriptionLabel = Label(self.root, text=self.description)
 
         # Task count
-        self.CountStr = tk.StringVar(self.root, value=str(self.count))
-        self.countComp = tk.Entry(self.root, textvariable=self.CountStr, width=3)
+        self.CountStr = StringVar(self.root, value=str(self.count))
+        self.countComp = Entry(self.root, textvariable=self.CountStr, width=3)
 
         # Task levels
-        self.levelComps = [tk.Button(self.root, text=str(level), width=3) for level in self.levels]
+        self.levelComps = [Button(self.root, text=str(level), width=3) for level in self.levels]
 
     def ViewerLayout(self):
 
         # Task description
-        self.descriptionLabel.grid(row=self.startRow, column=self.startCol, sticky=tk.W)
+        self.descriptionLabel.grid(row=self.startRow, column=self.startCol, sticky=W)
 
         # Task count
         self.countComp.grid(row=self.startRow, column=self.startCol+1)

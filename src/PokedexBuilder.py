@@ -1,14 +1,16 @@
 
+# Standard Libraries
 import json
 from pathlib import Path
 import traceback
 
+# Other modules
 from settings import *
 from PokedexScreenshotReader import PokedexScreenshotReader as Reader, EntryNotFoundException
 
 class PokedexBuilder:
 
-    def __init(self):
+    def __init__(self):
         pass
 
     @classmethod

@@ -1,9 +1,6 @@
-import tkinter as tk
-from tkinter import font
 
-# Global vairables
+# Other modules
 from settings import *
-
 from Pokedex import Pokedex
 
 def main():

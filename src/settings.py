@@ -1,4 +1,8 @@
+
+# Standard Libraries
 from pathlib import Path
+
+# Other modules
 from CompletionData import CompletionData
 
 POKEDEX_DIR = Path("./pokedex")

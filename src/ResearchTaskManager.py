@@ -1,6 +1,9 @@
-import tkinter as tk
+
+# Standard Libraries
+from tkinter import Button, Label
 import json
 
+# Other modules
 from settings import *
 from Viewer import Viewer
 from ResearchTask import ResearchTask
@@ -9,7 +12,7 @@ class ResearchTaskManager(Viewer):
 
     title = "圖鑑課題"
     
-    def __init__(self, root: tk.Tk, number, startRow: int=0, startCol: int=0):
+    def __init__(self, root, number, startRow: int=0, startCol: int=0):
 
         self.root = root
         self.number = number
@@ -48,10 +51,10 @@ class ResearchTaskManager(Viewer):
     def ViewerSetup(self):
 
         # Title
-        self.titleLabel = tk.Label(self.root, text=self.title)
+        self.titleLabel = Label(self.root, text=self.title)
 
         # Update Count
-        self.updateBtn = tk.Button(self.root, text=BTN_TEXT_UPDATE, command=self.WriteCountToData)
+        self.updateBtn = Button(self.root, text=BTN_TEXT_UPDATE, command=self.WriteCountToData)
 
         # Tasks
         ## TODO: setup for all tasks

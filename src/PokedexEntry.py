@@ -1,6 +1,10 @@
-import tkinter as tk
+
+# Standard Libraries
+from tkinter import Tk, Label, Button
+from tkinter import W, E
 import json
 
+# Other modules
 from settings import *
 from Viewer import Viewer
 from ResearchTaskManager import ResearchTaskManager
@@ -11,7 +15,7 @@ class PokedexEntry(Viewer):
 
     def __init__(self, number: str, root=None, startRow: int=0, startCol: int=0):
         if root == None:
-            self.root = tk.Tk()
+            self.root = Tk()
         else:
             self.root = root
 
@@ -44,24 +48,24 @@ class PokedexEntry(Viewer):
 
     def ViewerSetup(self):
         # Basic info
-        self.numberLabel        = tk.Label(self.root, text="No. {number}".format(number=self.number))
-        self.nameLabel          = tk.Label(self.root, text=self.name)
-        self.categoryLabel      = tk.Label(self.root, text="{category}神奇寶貝".format(category=self.category))
-        self.typeTitleLabel     = tk.Label(self.root, text="屬性")
-        self.typeComp1          = tk.Button(self.root, text=self.type[0], width=8)
+        self.numberLabel        = Label(self.root, text="No. {number}".format(number=self.number))
+        self.nameLabel          = Label(self.root, text=self.name)
+        self.categoryLabel      = Label(self.root, text="{category}神奇寶貝".format(category=self.category))
+        self.typeTitleLabel     = Label(self.root, text="屬性")
+        self.typeComp1          = Button(self.root, text=self.type[0], width=8)
         if len(self.type) > 1:
-            self.typeComp2      = tk.Button(self.root, text=self.type[1], width=8)
-        self.holdItemTitleLabel = tk.Label(self.root, text="持有物")
-        self.holdItemLabel      = tk.Label(self.root, text="、".join(self.holdItem))
+            self.typeComp2      = Button(self.root, text=self.type[1], width=8)
+        self.holdItemTitleLabel = Label(self.root, text="持有物")
+        self.holdItemLabel      = Label(self.root, text="、".join(self.holdItem))
 
         # Food
-        self.foodTitleLabel     = tk.Label(self.root, text="愛吃的食物")
-        self.foodComps = list[tk.Button]()
+        self.foodTitleLabel     = Label(self.root, text="愛吃的食物")
+        self.foodComps = list[Button]()
         for foodType in PKMN_FOOD_TYPES:  # type: str
             compState = "disabled"
             if foodType in self.food:
                 compState = "normal"
-            component           = tk.Button(self.root, text=foodType, state=compState, width=3)
+            component           = Button(self.root, text=foodType, state=compState, width=3)
             self.foodComps.append(component)
 
         # Research tasks
@@ -72,27 +76,27 @@ class PokedexEntry(Viewer):
     def ViewerLayout(self):
 
         root = self.root
-        while not type(root) is tk.Tk:
+        while not type(root) is Tk:
             print(type(root))
             root = root.master
         root.title("No. {number} {name}".format(number=self.number, name=self.name))
 
         # Basic info
-        self.numberLabel        .grid(row=0, column=0, sticky=tk.E)
+        self.numberLabel        .grid(row=0, column=0, sticky=E)
         self.nameLabel          .grid(row=0, column=1, columnspan=2)
         self.categoryLabel      .grid(row=0, column=3, columnspan=len(PKMN_FOOD_TYPES)-2)
 
-        self.typeTitleLabel     .grid(row=1, column=0, sticky=tk.W)
-        self.typeComp1          .grid(row=1, column=1, columnspan=2, sticky=tk.W)
+        self.typeTitleLabel     .grid(row=1, column=0, sticky=W)
+        self.typeComp1          .grid(row=1, column=1, columnspan=2, sticky=W)
         if len(self.type) > 1:
-            self.typeComp2      .grid(row=1, column=3, columnspan=2, sticky=tk.W)
+            self.typeComp2      .grid(row=1, column=3, columnspan=2, sticky=W)
 
-        self.foodTitleLabel     .grid(row=2, column=0, sticky=tk.W)
+        self.foodTitleLabel     .grid(row=2, column=0, sticky=W)
         for index, comp in enumerate(self.foodComps):
-            comp.grid(row=2, column=1+index, sticky=tk.W)
+            comp.grid(row=2, column=1+index, sticky=W)
 
-        self.holdItemTitleLabel .grid(row=3, column=0, sticky=tk.W)
-        self.holdItemLabel      .grid(row=3, column=1, columnspan=len(PKMN_FOOD_TYPES)-1, sticky=tk.W)
+        self.holdItemTitleLabel .grid(row=3, column=0, sticky=W)
+        self.holdItemLabel      .grid(row=3, column=1, columnspan=len(PKMN_FOOD_TYPES)-1, sticky=W)
 
         # Research tasks
         ## TODO: Setup layout for ResearchTaskManager

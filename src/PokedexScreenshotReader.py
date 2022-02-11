@@ -1,5 +1,9 @@
+
+# Standard Libraries
 from PIL import Image, ImageEnhance
 from pathlib import Path
+
+# Other Libraries
 import pytesseract
 
 from settings import IMAGES_DIR, TESSERACT_EXE_PATH

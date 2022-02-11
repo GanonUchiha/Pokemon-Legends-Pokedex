@@ -1,7 +1,13 @@
+build
+dist
 test*
+*.spec
 images/summary/*
 images/tasks/*
 images.txt
 pokedex.ods
-pokedex/*
+pokedex/*.json
+!pokedex/completion.json
+!pokedex/template.json
 src/__pycache__
+src/ImageScanTest.py

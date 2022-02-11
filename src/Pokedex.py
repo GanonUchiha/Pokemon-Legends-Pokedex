@@ -1,7 +1,10 @@
 
-import tkinter as tk
+# Standard Libraries
+from tkinter import Tk, PanedWindow, Button, Label
+from tkinter import NSEW
 from tkinter import font
 
+# Other modules
 from settings import *
 from Viewer import Viewer
 from PokedexEntry import PokedexEntry
@@ -15,7 +18,7 @@ class Pokedex(Viewer):
 
     def __init__(self, root=None):
         if root == None:
-            root = tk.Tk()
+            root = Tk()
         
         self.root = root
 
@@ -48,13 +51,13 @@ class Pokedex(Viewer):
 
         # Pokedex Pane
         self.pokedexPanel.grid_forget()
-        self.pokedexPanel = tk.PanedWindow(self.root)
+        self.pokedexPanel = PanedWindow(self.root)
         self.pokedexEntry = PokedexEntry(self.pages[self.currentPageIndex], self.pokedexPanel)
         self.pokedexPanel.grid(row=1, column=2)
 
         # Research Task Pane
         self.taskPanel.grid_forget()
-        self.taskPanel = tk.PanedWindow(self.root)
+        self.taskPanel = PanedWindow(self.root)
         self.taskEntry = ResearchTaskManager(self.taskPanel, self.pages[self.currentPageIndex])
         self.taskPanel.grid(row=1, column=3)
 
@@ -85,15 +88,15 @@ class Pokedex(Viewer):
     def ViewerSetup(self):
         
         # Pokedex Pane
-        self.pokedexPanel = tk.PanedWindow(self.root)
+        self.pokedexPanel = PanedWindow(self.root)
         self.pokedexEntry = PokedexEntry(self.pages[self.currentPageIndex], self.pokedexPanel)
         
         # Research Task Pane
-        self.taskPanel = tk.PanedWindow(self.root)
+        self.taskPanel = PanedWindow(self.root)
         self.taskEntry = ResearchTaskManager(self.taskPanel, self.pages[self.currentPageIndex])
 
-        self.prevButton = tk.Button(self.root, text="上一頁", command=self.PrevPage)
-        self.nextButton = tk.Button(self.root, text="下一頁", command=self.NextPage)
+        self.prevButton = Button(self.root, text="上一頁", command=self.PrevPage)
+        self.nextButton = Button(self.root, text="下一頁", command=self.NextPage)
         self.UpdatePageButtons()
 
     def ViewerLayout(self):
@@ -106,10 +109,10 @@ class Pokedex(Viewer):
     def Centering(self):
         col_count, row_count = self.root.grid_size()
 
-        tk.Label(self.root).grid(row=0, column=0, sticky=tk.NSEW)
-        tk.Label(self.root).grid(row=0, column=col_count, sticky=tk.NSEW)
-        tk.Label(self.root).grid(row=row_count, column=0, sticky=tk.NSEW)
-        tk.Label(self.root).grid(row=row_count, column=col_count, sticky=tk.NSEW)
+        Label(self.root).grid(row=0, column=0, sticky=NSEW)
+        Label(self.root).grid(row=0, column=col_count, sticky=NSEW)
+        Label(self.root).grid(row=row_count, column=0, sticky=NSEW)
+        Label(self.root).grid(row=row_count, column=col_count, sticky=NSEW)
 
         self.root.grid_rowconfigure(0, weight=1)
         self.root.grid_rowconfigure(row_count, weight=1)
