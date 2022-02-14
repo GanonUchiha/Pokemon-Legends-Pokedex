@@ -2,12 +2,12 @@
 from pathlib import Path
 import json
 
-class CompletionData:
+class TaskProgressData:
 
     debug = False
 
     def __init__(self, pokedexDir: Path):
-        self.filepath = pokedexDir.joinpath("completion.json")
+        self.filepath = pokedexDir.joinpath("progress.json")
 
         self.LoadData()
     

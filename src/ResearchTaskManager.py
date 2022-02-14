@@ -27,26 +27,26 @@ class ResearchTaskManager(Viewer):
         
         self.GetTasksFromData(data[PKMN_TASK])
 
-        self.taskCompletion = list[int]()
+        self.taskProgress = list[int]()
         try:
-            self.taskCompletion = COMPLETION_DATA.GetData(self.number)
-            if len(self.taskCompletion) != self.numTasks:
+            self.taskProgress = TASK_PROGRESS_DATA.GetData(self.number)
+            if len(self.taskProgress) != self.numTasks:
                 raise Exception("Number of counters don't match the number of tasks")
         except Exception:
-            COMPLETION_DATA.InitData(self.number, self.numTasks)
-            self.taskCompletion = COMPLETION_DATA.GetData(self.number)
+            TASK_PROGRESS_DATA.InitData(self.number, self.numTasks)
+            self.taskProgress = TASK_PROGRESS_DATA.GetData(self.number)
 
     def ReadCountFromData(self):
         for index, task in enumerate(self.tasks):
-            task.ReadCountFromData(self.taskCompletion[index])
+            task.ReadCountFromData(self.taskProgress[index])
 
     def WriteCountToData(self):
         for index, task in enumerate(self.tasks):
             task.UpdateCount()
-            self.taskCompletion[index] = task.count
+            self.taskProgress[index] = task.count
 
-        COMPLETION_DATA.SetData(self.number, self.taskCompletion)
-        COMPLETION_DATA.SaveData()
+        TASK_PROGRESS_DATA.SetData(self.number, self.taskProgress)
+        TASK_PROGRESS_DATA.SaveData()
 
     def ViewerSetup(self):
 

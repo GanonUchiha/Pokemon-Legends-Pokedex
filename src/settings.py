@@ -3,7 +3,7 @@
 from pathlib import Path
 
 # Other modules
-from CompletionData import CompletionData
+from TaskProgressData import TaskProgressData
 
 POKEDEX_DIR = Path("./pokedex")
 IMAGES_DIR = Path("./images")
@@ -21,4 +21,4 @@ PKMN_TASK       = "圖鑑課題"
 TASK_DESCR      = "說明"
 TASK_LEVEL      = "階段"
 
-COMPLETION_DATA = CompletionData(POKEDEX_DIR)
+TASK_PROGRESS_DATA = TaskProgressData(POKEDEX_DIR)

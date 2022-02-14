@@ -2,8 +2,7 @@ build
 dist
 test*
 *.spec
-images/summary/*
-images/tasks/*
+images
 images.txt
 pokedex.ods
 pokedex/*.json

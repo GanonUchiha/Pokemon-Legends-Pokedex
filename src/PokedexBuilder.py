@@ -80,15 +80,19 @@ def main():
     for i in range(1, 300):
         try:
             print("Summary for", i)
-            PokedexBuilder.UpdateEntrySummary(i, Reader.ReadSummaryFromImage(i))
+            PokedexBuilder.UpdateEntrySummary(i, Reader.ReadSummaryFromImage(i), overwriteInfo=True)
 
             print("Tasks for", i)
-            PokedexBuilder.UpdateEntryTasks(i, Reader.ReadTaskFromImage(i))
+            taskData = list(Reader.ReadTaskFromImage(i))
+            PokedexBuilder.UpdateEntryTasks(i, taskData, overwriteTasks=True)
+            taskProgress = [data[1] for data in taskData]
+            TASK_PROGRESS_DATA.SetData(i, taskProgress)
         except EntryNotFoundException:
             continue
         except Exception:
             traceback.print_exc()
             continue
+    TASK_PROGRESS_DATA.SaveData()
 
 if __name__ == "__main__":
     main()

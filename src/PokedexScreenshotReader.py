@@ -2,6 +2,7 @@
 # Standard Libraries
 from PIL import Image, ImageEnhance
 from pathlib import Path
+import re
 
 # Other Libraries
 import pytesseract
@@ -20,7 +21,7 @@ class EntryNotFoundException(Exception):
 
 class PokedexScreenshotReader():
 
-    debug = True
+    debug = False
 
     def __init__(self):
         pass
@@ -44,7 +45,7 @@ class PokedexScreenshotReader():
 
         # Get taks completion count
         numberImageCropped: Image.Image = image.crop((520, 135, 570, 530))
-        taskCount: str = pytesseract.image_to_string(numberImageCropped, lang='eng', config="--psm 6 digit")
+        taskCount: str = pytesseract.image_to_string(numberImageCropped, lang='eng', config="--psm 6 -c tessedit_char_whitelist=0123456789")
         taskCountList = [int(count) for count in self.StrToList(taskCount)]
 
         # Get taks completion levels
@@ -90,9 +91,9 @@ class PokedexScreenshotReader():
             levelImageContrast: ImageEnhance.Contrast = ImageEnhance.Contrast(levelImageCropped)
             levelImageCropped = self.RemoveRed(levelImageContrast.enhance(3))
             # levelImageCropped.show()
-            taskLevel: str = pytesseract.image_to_string(levelImageCropped, lang='eng', config="--psm 6")
-            if self.debug:
-                print(taskLevel)
+            taskLevel: str = pytesseract.image_to_string(levelImageCropped, lang='eng', config="--psm 6 -c tessedit_char_whitelist=0123456789")
+            # if self.debug:
+            #     print(taskLevel)
 
             taskLevelList.append([int(num) for num in self.StrToList(taskLevel)])
         
@@ -147,6 +148,8 @@ class PokedexScreenshotReader():
         imageCropped = image.crop((390, 90, 600, 115))
         imageContrast: ImageEnhance.Contrast = ImageEnhance.Contrast(imageCropped)
         category: str = pytesseract.image_to_string(imageCropped, lang='chi_tra', config="--psm 6").strip()
+        category = re.sub("[賣寅]", "寶", category)
+        category = re.sub("[鞍]", "夢", category)
         category = category.replace("寶可夢", "")
         if self.debug:
             print("Category: {}".format(category))
@@ -158,9 +161,11 @@ class PokedexScreenshotReader():
 
         imageCropped = image.crop((775, 90, 813, 115))
         imageContrast: ImageEnhance.Contrast = ImageEnhance.Contrast(imageCropped)
-        type2: str = pytesseract.image_to_string(imageContrast.enhance(3), lang='chi_tra', config="--psm 6").strip()
+        type2: str = pytesseract.image_to_string(imageContrast.enhance(2), lang='chi_tra', config="--psm 6").strip()
 
         types = [t for t in (type1, type2) if t != ""]
+        if len(types) == 0:
+            types = ["無"]
         if self.debug:
             print("Types: {}".format(types))
 
@@ -177,6 +182,8 @@ class PokedexScreenshotReader():
         item2: str = pytesseract.image_to_string(imageContrast.enhance(2), lang='chi_tra', config="--psm 6").strip()
 
         items = [t for t in (item1, item2) if t != ""]
+        if len(items) == 0:
+            items = ["無"]
         if self.debug:
             print("Items: {}".format(items))
         
